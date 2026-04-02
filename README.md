@@ -26,6 +26,7 @@ Regeln:
 
 ```bash
 npm install
+npm test
 npm run dev
 ```
 
