@@ -2,6 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import Head from 'next/head';
 
 const GRID_SIZE = 20;
+const P1_KEYS = ['w', 'a', 's', 'd'];
+const P2_KEYS = ['ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
+
 export default function HomePage() {
   const canvasRef = useRef(null);
   const [joinCode, setJoinCode] = useState('');
@@ -119,15 +122,15 @@ export default function HomePage() {
 
     const onKeyDown = async (event) => {
       const key = event.key;
-      if (!['w', 'a', 's', 'd', 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight'].includes(key)) {
+      if (![...P1_KEYS, ...P2_KEYS].includes(key)) {
         return;
       }
 
-      if (role === 'p1' && !['w', 'a', 's', 'd'].includes(key)) {
+      if (role === 'p1' && !P1_KEYS.includes(key)) {
         return;
       }
 
-      if (role === 'p2' && !['ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight'].includes(key)) {
+      if (role === 'p2' && !P2_KEYS.includes(key)) {
         return;
       }
 
