@@ -2,8 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import Head from 'next/head';
 
 const GRID_SIZE = 20;
-const TILE_COUNT = 30;
-
 export default function HomePage() {
   const canvasRef = useRef(null);
   const [joinCode, setJoinCode] = useState('');
@@ -182,6 +180,7 @@ export default function HomePage() {
       </Head>
 
       <main className="container">
+        <p className="badge">2-Player Online Lobby</p>
         <h1>🐍 Multiplayer Snake</h1>
         <p>Online-Modus: Party-Code erstellen/beitreten oder Quick Match.</p>
 
