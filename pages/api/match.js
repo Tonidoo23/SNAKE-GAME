@@ -1,10 +1,12 @@
-import {
+import engine from '../../lib/match-engine';
+
+const {
   createMatch,
   getState,
   joinMatch,
   pushInput,
   quickMatch
-} from '../../lib/match-engine';
+} = engine;
 
 const directionMap = {
   w: { x: 0, y: -1 },
