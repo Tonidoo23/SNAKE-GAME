@@ -4,6 +4,7 @@ import Head from 'next/head';
 const GRID_SIZE = 20;
 const P1_KEYS = ['w', 'a', 's', 'd'];
 const P2_KEYS = ['ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
+const ALL_KEYS = [...P1_KEYS, ...P2_KEYS];
 
 export default function HomePage() {
   const canvasRef = useRef(null);
@@ -23,10 +24,12 @@ export default function HomePage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
+
     const data = await response.json();
     if (!response.ok) {
       throw new Error(data.error || 'Unbekannter Fehler');
     }
+
     return data;
   }
 
@@ -53,7 +56,10 @@ export default function HomePage() {
 
     setBusy(true);
     try {
-      const result = await postAction({ action: 'join', roomCode: joinCode.trim().toUpperCase() });
+      const result = await postAction({
+        action: 'join',
+        roomCode: joinCode.trim().toUpperCase()
+      });
       setRoomCode(result.roomCode);
       setPlayerId(result.playerId);
       setRole(result.role);
@@ -91,6 +97,7 @@ export default function HomePage() {
       try {
         const response = await fetch(`/api/match?roomCode=${roomCode}&playerId=${playerId}`);
         const data = await response.json();
+
         if (!response.ok) {
           throw new Error(data.error || 'State-Fehler');
         }
@@ -122,7 +129,7 @@ export default function HomePage() {
 
     const onKeyDown = async (event) => {
       const key = event.key;
-      if (![...P1_KEYS, ...P2_KEYS].includes(key)) {
+      if (!ALL_KEYS.includes(key)) {
         return;
       }
 
@@ -142,7 +149,7 @@ export default function HomePage() {
           key
         });
       } catch {
-        // polling updates status
+        // status is updated via polling
       }
     };
 
